@@ -22,9 +22,27 @@ dependencies = {
 build = {
    type = "tree-sitter-cli",
    tree_sitter_version = "0.24.4",
-   install = {
-      bin = {
-         ['tree-sitter'] = 'tree-sitter'
+   platforms = {
+      windows = {
+         install = {
+            bin = {
+               ['tree-sitter.exe'] = 'tree-sitter.exe'
+            }
+         }
+      },
+      linux = {
+         install = {
+            bin = {
+               ['tree-sitter'] = 'tree-sitter'
+            }
+         }
+      },
+      macosx = {
+         install = {
+            bin = {
+               ['tree-sitter'] = 'tree-sitter'
+            }
+         }
       }
    }
 }
