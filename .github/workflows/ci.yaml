@@ -1,0 +1,62 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lua:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [linux, macos, macos-arm64]
+        lua: [lua=5.4]
+        include:
+        - os: linux
+          runner: ubuntu-22.04
+        - os: macos
+          runner: macos-13
+        - os: macos-arm64
+          runner: macos-14
+    name: ${{ matrix.os }} (${{ matrix.lua }})
+    runs-on: ${{ matrix.runner }}
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE.
+      - uses: actions/checkout@v4
+      - name: Install Lua (${{ matrix.lua }})
+        run: |
+          pip install hererocks
+          hererocks -r @v3.11.1 --${{ matrix.lua }} lua_install
+          echo lua_install/bin >> $GITHUB_PATH
+        env:
+          MACOSX_DEPLOYMENT_TARGET: 11.0
+
+      - name: Install tree-sitter-cli via LuaRocks
+        run: |
+          luarocks make --server=https://luarocks.org/dev
+
+      - name: Try running tree-sitter
+        run: |
+          tree-sitter --version
+
+  windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        lua: [lua=5.4]
+    runs-on: windows-2022
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE.
+      - uses: actions/checkout@v4
+      - name: Install Lua (${{ matrix.lua }})
+        run: |
+          pip install hererocks
+          hererocks lua_install -r@3a142ce --${{ matrix.lua }}
+
+      - name: Install tree-sitter-cli via LuaRocks
+        run: |
+          .\lua_install\bin\activate
+          luarocks make --server=https://luarocks.org/dev
+
+      - name: Try running tree-sitter
+        run: |
+          .\lua_install\bin\activate
+          tree-sitter.exe --version
