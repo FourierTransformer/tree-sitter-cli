@@ -8,6 +8,10 @@ source = {
 }
 
 description = {
+   summary = "Install tree-sitter CLI binaries",
+   detailed = "An option to install the tree-sitter CLI via LuaRocks",
+   homepage = "https://github.com/FourierTransformer/tree-sitter-cli",
+   issues_url = "https://github.com/FourierTransformer/tree-sitter-cli/issues",
    license = "MIT"
 }
 
