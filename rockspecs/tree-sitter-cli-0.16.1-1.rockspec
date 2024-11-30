@@ -1,7 +1,7 @@
 rockspec_format = "3.0"
 
 package = "tree-sitter-cli"
-version = "scm-1"
+version = "0.16.1-1"
 
 source = {
    url = "git+https://github.com/FourierTransformer/tree-sitter-cli"
@@ -19,7 +19,7 @@ dependencies = {
 
 build = {
    type = "tree-sitter-cli",
-   tree_sitter_version = "v0.24.4",
+   tree_sitter_version = "0.16.1",
    platforms = {
       windows = {
          install = {
