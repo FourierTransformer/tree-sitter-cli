@@ -17,7 +17,7 @@ description = {
 
 supported_platforms = {"linux", "macosx", "windows"}
 
-dependencies = {
+build_dependencies = {
    "luarocks-build-tree-sitter-cli==0.0.2",
 }
 
