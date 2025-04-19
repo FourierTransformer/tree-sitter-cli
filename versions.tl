@@ -1,5 +1,7 @@
 -- all the various tagged releases from https://github.com/tree-sitter/tree-sitter/releases
 return {
+"v0.25.3",
+"v0.25.2",
 "v0.25.1",
 "v0.25.0",
 "v0.24.7",
