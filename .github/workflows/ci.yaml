@@ -11,23 +11,27 @@ jobs:
         lua: [lua=5.4]
         include:
         - os: linux
-          runner: ubuntu-22.04
+          runner: ubuntu-latest
         - os: macos
-          runner: macos-13
+          runner: macos-15-intel
         - os: macos-arm64
-          runner: macos-14
+          runner: macos-latest
     name: ${{ matrix.os }} (${{ matrix.lua }})
     runs-on: ${{ matrix.runner }}
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+      - name:  Install libreadline on linux
+        run:   |
+               if [ "$RUNNER_OS" == "Linux" ]; then
+                    sudo apt-get install -y libreadline-dev
+               fi
+        shell: bash
       - name: Install Lua (${{ matrix.lua }})
         run: |
-          pip install hererocks
-          hererocks -r @v3.11.1 --${{ matrix.lua }} lua_install
+          pip install git+https://github.com/luarocks/hererocks
+          hererocks -r^ --${{ matrix.lua }} lua_install
           echo lua_install/bin >> $GITHUB_PATH
-        env:
-          MACOSX_DEPLOYMENT_TARGET: 11.0
 
       - name: Install tree-sitter-cli via LuaRocks
         run: |
@@ -42,14 +46,15 @@ jobs:
       fail-fast: false
       matrix:
         lua: [lua=5.4]
+        target: [mingw,vs]
     runs-on: windows-2022
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install Lua (${{ matrix.lua }})
         run: |
-          pip install hererocks
-          hererocks lua_install -r@3a142ce --${{ matrix.lua }}
+          pip install git+https://github.com/luarocks/hererocks
+          hererocks lua_install -r^ --${{ matrix.lua }} --target ${{ matrix.target }}
 
       - name: Install tree-sitter-cli via LuaRocks
         run: |
