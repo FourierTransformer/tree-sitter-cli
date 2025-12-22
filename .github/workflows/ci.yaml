@@ -59,7 +59,8 @@ jobs:
       - name: Install tree-sitter-cli via LuaRocks
         run: |
           .\lua_install\bin\activate
-          luarocks make
+          luarocks install luarocks-build-tree-sitter-cli --dev
+          luarocks make --deps-mode none
 
       - name: Try running tree-sitter
         run: |
