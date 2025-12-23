@@ -22,11 +22,9 @@ jobs:
       # Checks-out the repository under $GITHUB_WORKSPACE.
       - uses: actions/checkout@v6
       - name:  Install libreadline on linux
-        run:   |
-               if [ "$RUNNER_OS" == "Linux" ]; then
-                    sudo apt-get install -y libreadline-dev
-               fi
-        shell: bash
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y libreadline-dev
       - name: Install Lua (${{ matrix.lua }})
         run: |
           pip install git+https://github.com/luarocks/hererocks
