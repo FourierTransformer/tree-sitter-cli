@@ -11,7 +11,7 @@ local function export_rockspec(tag_version: string, revision: string, filename?:
    local version: string
    if tag_version:find("^v") then version = tag_version:sub(2) else version = tag_version end
    
-   local final_file_contents = string.format(template, version, tag_version)
+   local final_file_contents = string.format(template, version, revision, tag_version)
    local final_file = io.open(string.format(filename, version), "w")
    final_file:write(final_file_contents)
    final_file:close()
@@ -22,7 +22,11 @@ local function main()
       export_rockspec(tag_version, "1")
 
       if i == 1 then
-         export_rockspec("scm", "1", "tree-sitter-cli-%s-1.rockspec")
+         local version = "scm"
+	 local final_file_contents = string.format(template, version, "1", tag_version)
+	 local final_file = io.open(string.format("tree-sitter-cli-%s-1.rockspec", version), "w")
+	 final_file:write(final_file_contents)
+	 final_file:close()
       end
    end
 

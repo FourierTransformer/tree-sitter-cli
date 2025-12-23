@@ -1,7 +1,7 @@
 rockspec_format = "3.0"
 
 package = "tree-sitter-cli"
-version = "%s-1"
+version = "%s-%s"
 
 source = {
    url = "git+https://github.com/FourierTransformer/tree-sitter-cli"

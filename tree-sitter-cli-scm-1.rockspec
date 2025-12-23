@@ -23,7 +23,7 @@ build_dependencies = {
 
 build = {
    type = "tree-sitter-cli",
-   tree_sitter_version = "scm",
+   tree_sitter_version = "v0.26.3",
    platforms = {
       windows = {
          install = {
