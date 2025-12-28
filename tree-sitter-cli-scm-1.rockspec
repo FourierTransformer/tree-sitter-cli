@@ -18,12 +18,12 @@ description = {
 supported_platforms = {"linux", "macosx", "windows"}
 
 build_dependencies = {
-   "luarocks-build-tree-sitter-cli==0.0.2",
+   "luarocks-build-tree-sitter-cli==0.0.3",
 }
 
 build = {
    type = "tree-sitter-cli",
-   tree_sitter_version = "v0.25.3",
+   tree_sitter_version = "v0.26.3",
    platforms = {
       windows = {
          install = {
