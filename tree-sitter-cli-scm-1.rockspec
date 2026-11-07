@@ -23,7 +23,7 @@ build_dependencies = {
 
 build = {
    type = "tree-sitter-cli",
-   tree_sitter_version = "v0.26.8",
+   tree_sitter_version = "v0.27.2",
    platforms = {
       windows = {
          install = {
